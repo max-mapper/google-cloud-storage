@@ -4,6 +4,8 @@ access bucket data from [Google Cloud Storage](https://developers.google.com/sto
 
 use from Node or on the CLI
 
+[![NPM](https://nodei.co/npm/google-cloud-storage.png)](https://nodei.co/npm/google-cloud-storage/)
+
 ## usage
 
 first you have to get an access token. the easiest way is probably to use [googleauth](https://github.com/maxogden/googleauth) with `--scope="https://www.googleapis.com/auth/devstorage.full_control"`
@@ -22,7 +24,7 @@ example:
 
 ```
 $ google-cloud-storage maxomusic
-{"kind":"storage#object","id":"2562/Unbalance/03 Lost.mp3/9",,"name":"2562/Unbalance/03 Lost.mp3","bucket":"maxomusic","generation":"9","metageneration":"2","contentType":"audio/mpeg","updated":"2010-08-28T04:45:06.130Z","size":"6765847","md5Hash":"9QsV+OSWyz+kY+Y3riPOlQ==","entityId":"00b4903a97fd7a62057b813acc58e8a9af1e5abe4220ef130cd88239a3aa39fd"},"crc32c":"NREp3A==","etag":"CAkQAg=="}
+{"kind":"storage#object","id":"2562/Unbalance/03 Lost.mp3/9","name":"2562/Unbalance/03 Lost.mp3","bucket":"maxomusic","generation":"9","metageneration":"2","contentType":"audio/mpeg","updated":"2010-08-28T04:45:06.130Z","size":"6765847","md5Hash":"9QsV+OSWyz+kY+Y3riPOlQ==","entityId":"00b4903a97fd7a62057b813acc58e8a9af1e5abe4220ef130cd88239a3aa39fd"},"crc32c":"NREp3A==","etag":"CAkQAg=="}
 {"kind":"storage#object","id":"2562/Unbalance/04 Like A Dream.mp3/9","name":"2562/Unbalance/04 Like A Dream.mp3","bucket":"maxomusic","generation":"9","metageneration":"2","contentType":"audio/mpeg","updated":"2010-08-28T04:45:14.632Z","size":"6784006","md5Hash":"VGcsBxesZ5ADYOt5v9kOzg==","entityId":"00b4903a97fd7a62057b813acc58e8a9af1e5abe4220ef130cd88239a3aa39fd"},"crc32c":"FFar9g==","etag":"CAkQAg=="}
 ... etc
 ```
