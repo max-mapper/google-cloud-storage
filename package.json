@@ -1,0 +1,30 @@
+{
+  "name": "google-cloud-storage",
+  "version": "1.0.0",
+  "description": "access bucket data from google cloud storage as a stream from node or on the cli",
+  "bin": {
+    "google-cloud-storage": "cli.js"
+  },
+  "main": "index.js",
+  "author": "max ogden",
+  "license": "BSD",
+  "dependencies": {
+    "debug": "^1.0.4",
+    "request": "^2.39.0",
+    "stdout": "0.0.3",
+    "through2": "^0.5.1",
+    "xtend": "^4.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maxogden/google-cloud-storage.git"
+  },
+  "bugs": {
+    "url": "https://github.com/maxogden/google-cloud-storage/issues"
+  },
+  "homepage": "https://github.com/maxogden/google-cloud-storage"
+}
