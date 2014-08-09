@@ -1,6 +1,8 @@
 # google-cloud-storage
 
-access bucket data from [Google Cloud Storage](https://developers.google.com/storage/docs/json_api/v1/) as a stream
+a blob store backend for [Google Cloud Storage](https://developers.google.com/storage/docs/json_api/v1/)
+
+compatible with the [abstract-blob-store](https://github.com/maxogden/abstract-blob-store) API
 
 use from Node or on the CLI
 
