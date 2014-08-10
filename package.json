@@ -1,6 +1,6 @@
 {
   "name": "google-cloud-storage",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "access bucket data from google cloud storage as a stream from node or on the cli",
   "bin": {
     "google-cloud-storage": "cli.js"

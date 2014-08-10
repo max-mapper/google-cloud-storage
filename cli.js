@@ -18,6 +18,7 @@ if (!args.token) {
   }
 }
 
+args.bucket = bucket
 var client = gcs(args)
 
-client.createBucketReadStream(bucket).pipe(ldj.serialize()).pipe(process.stdout)
+client.createBucketReadStream().pipe(ldj.serialize()).pipe(process.stdout)

@@ -1,7 +1,6 @@
 var fs = require('fs')
 var path = require('path')
 var test = require('tape')
-var concat = require('concat-stream')
 var abstractBlobTests = require('abstract-blob-store/tests')
 var gcs = require('./')
 

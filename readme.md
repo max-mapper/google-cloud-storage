@@ -8,7 +8,9 @@ use from Node or on the CLI
 
 [![NPM](https://nodei.co/npm/google-cloud-storage.png)](https://nodei.co/npm/google-cloud-storage/)
 
-## usage
+## cli usage
+
+the cli tool is currently only useful for getting metadata out of existing buckets
 
 first you have to get an access token. the easiest way is probably to use [googleauth](https://github.com/maxogden/googleauth) with `--scope="https://www.googleapis.com/auth/devstorage.full_control"`
 

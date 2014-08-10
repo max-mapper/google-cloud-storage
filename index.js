@@ -129,12 +129,7 @@ Client.prototype.createWriteStream = function(options, cb) {
     upload.on('response', function(resp) {
       resp.pipe(concat(function(body) {
         var meta = JSON.parse(body)
-        
-        // normalize googles return metadata with what abstract-blob store expects
-        meta.hash = new Buffer(meta.md5Hash, 'base64').toString('hex')
-        meta.size = +meta.size
-        
-        cb(null, meta)
+        cb(null, self.normalizeMetadata(meta))
       }))
     })
     upload.on('error', function(err) {
@@ -144,6 +139,13 @@ Client.prototype.createWriteStream = function(options, cb) {
   })
   
   return proxy
+}
+
+// normalize googles return metadata with what abstract-blob store expects
+Client.prototype.normalizeMetadata = function(object) {
+  object.hash = new Buffer(object.md5Hash, 'base64').toString('hex')
+  object.size = +object.size
+  return object
 }
 
 Client.prototype.createBucketReadStream = function(bucket) {
@@ -157,7 +159,7 @@ Client.prototype.createBucketReadStream = function(bucket) {
   
   function importBucket(next) {
     debug('importing', next ? next : '')
-    var url = this.baseURL + '/b/' + bucket + '/o'
+    var url = self.baseURL + '/b/' + bucket + '/o'
     if (next) url += '?pageToken=' + next
     self.request({url: url}, function(err, resp, body) {
       if (err || (body && body.error) ) {
@@ -165,7 +167,7 @@ Client.prototype.createBucketReadStream = function(bucket) {
         stream.end()
       }
       body.items.map(function(i) {
-        stream.push(i)
+        stream.push(self.normalizeMetadata(i))
       })
       if (body.nextPageToken) {
         importBucket(body.nextPageToken)
