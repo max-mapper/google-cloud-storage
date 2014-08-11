@@ -38,7 +38,7 @@ Client.prototype.exists = function(options, cb) {
   if (!bucket) return cb(new Error('must specify bucket'))
   if (!options.name) return cb(new Error('must specify object name'))
   
-  var url = this.baseURL + '/b/' + bucket + '/o/' + options.name
+  var url = this.baseURL + '/b/' + bucket + '/o/' + encodeURIComponent(options.name)
   
   self.request({url: url, json: true}, function(err, resp, data) {
     if (err) return cb(err)
@@ -53,7 +53,7 @@ Client.prototype.remove = function(options, cb) {
   if (!bucket) return cb(new Error('must specify bucket'))
   if (!options.name) return cb(new Error('must specify object name'))
   
-  var url = this.baseURL + '/b/' + bucket + '/o/' + options.name
+  var url = this.baseURL + '/b/' + bucket + '/o/' + encodeURIComponent(options.name)
   
   self.request({url: url, json: true, method: 'DELETE'}, function(err, resp, data) {
     if (err) return cb(err)
@@ -70,7 +70,7 @@ Client.prototype.createReadStream = function(options) {
   if (!options.name) return proxy.destroy(new Error('must specify object name'))
   
   // alt=media makes it stream the file instead of the metadata
-  var url = this.baseURL + '/b/' + bucket + '/o/' + options.name + '?alt=media'
+  var url = this.baseURL + '/b/' + bucket + '/o/' + encodeURIComponent(options.name) + '?alt=media'
   
   var read = self.request({url: url})
   proxy.setReadable(read)
@@ -98,7 +98,7 @@ Client.prototype.createWriteStream = function(options, cb) {
     return proxy
   }
   
-  var objectURL = this.uploadBaseURL + '/b/' + bucket + '/o'
+  var objectURL = this.uploadBaseURL + '/b/' + encodeURIComponent(bucket) + '/o'
   
   var newSession = {
     method: "POST",
@@ -159,7 +159,7 @@ Client.prototype.createBucketReadStream = function(bucket) {
   
   function importBucket(next) {
     debug('importing', next ? next : '')
-    var url = self.baseURL + '/b/' + bucket + '/o'
+    var url = self.baseURL + '/b/' + encodeURIComponent(bucket) + '/o'
     if (next) url += '?pageToken=' + next
     self.request({url: url}, function(err, resp, body) {
       if (err || (body && body.error) ) {
