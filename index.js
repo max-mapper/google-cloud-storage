@@ -67,10 +67,10 @@ Client.prototype.createReadStream = function(options) {
   var proxy = duplex()
   var bucket = options.bucket || this.bucket
   if (!bucket) return proxy.destroy(new Error('must specify bucket'))
-  if (!options.name) return proxy.destroy(new Error('must specify object name'))
+  if (!options.key) return proxy.destroy(new Error('must specify object key'))
   
   // alt=media makes it stream the file instead of the metadata
-  var url = this.baseURL + '/b/' + bucket + '/o/' + encodeURIComponent(options.name) + '?alt=media'
+  var url = this.baseURL + '/b/' + bucket + '/o/' + encodeURIComponent(options.key) + '?alt=media'
   
   var read = self.request({url: url})
   proxy.setReadable(read)
@@ -145,6 +145,7 @@ Client.prototype.createWriteStream = function(options, cb) {
 Client.prototype.normalizeMetadata = function(object) {
   object.hash = new Buffer(object.md5Hash, 'base64').toString('hex')
   object.size = +object.size
+  object.key = object.name
   return object
 }
 
