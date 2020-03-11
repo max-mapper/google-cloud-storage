@@ -36,9 +36,9 @@ Client.prototype.exists = function(options, cb) {
   var self = this
   var bucket = options.bucket || this.bucket
   if (!bucket) return cb(new Error('must specify bucket'))
-  if (!options.name) return cb(new Error('must specify object name'))
+  if (!options.key) return cb(new Error('must specify object name'))
   
-  var url = this.baseURL + '/b/' + bucket + '/o/' + encodeURIComponent(options.name)
+  var url = this.baseURL + '/b/' + bucket + '/o/' + encodeURIComponent(options.key)
   
   self.request({url: url, json: true}, function(err, resp, data) {
     if (err) return cb(err)
@@ -51,9 +51,9 @@ Client.prototype.remove = function(options, cb) {
   var self = this
   var bucket = options.bucket || this.bucket
   if (!bucket) return cb(new Error('must specify bucket'))
-  if (!options.name) return cb(new Error('must specify object name'))
+  if (!options.key) return cb(new Error('must specify object name'))
   
-  var url = this.baseURL + '/b/' + bucket + '/o/' + encodeURIComponent(options.name)
+  var url = this.baseURL + '/b/' + bucket + '/o/' + encodeURIComponent(options.key)
   
   self.request({url: url, json: true, method: 'DELETE'}, function(err, resp, data) {
     if (err) return cb(err)
@@ -98,16 +98,18 @@ Client.prototype.createWriteStream = function(options, cb) {
     return proxy
   }
   
+  if (!options.key) return proxy.destroy(new Error('must specify object key'))
+  
   var objectURL = this.uploadBaseURL + '/b/' + encodeURIComponent(bucket) + '/o'
   
   var newSession = {
     method: "POST",
     url: objectURL + '?uploadType=resumable',
     json: {
-      name: options.name
+      name: options.key
     },
     headers: {
-      'X-Upload-Content-Type': mime.lookup(options.name)
+      'X-Upload-Content-Type': mime.lookup(options.key)
     }
   }
   
